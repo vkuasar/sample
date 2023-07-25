@@ -1,6 +1,74 @@
 <!DOCTYPE html>
 <html>
-<head><title>This is the head</title></head>
-<body><h1>This is the body</h1><body>
+<head>
+    <meta charset="UTF-8">
+    <title>Chat App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
+        #chat-container {
+            width: 400px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        #chat-messages {
+            height: 400px;
+            overflow-y: scroll;
+            padding: 10px;
+        }
+
+        #chat-input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-top: 1px solid #ccc;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-messages">
+            <!-- Chat messages will be displayed here -->
+            <!-- Example message format: <div><strong>Username:</strong> Message content</div> -->
+        </div>
+        <input type="text" id="chat-input" placeholder="Type your message here">
+    </div>
+
+    <script>
+        // Function to add a new message to the chat
+        function addMessage(username, message) {
+            const chatMessages = document.getElementById("chat-messages");
+            const messageDiv = document.createElement("div");
+            messageDiv.innerHTML = `<strong>${username}:</strong> ${message}`;
+            chatMessages.appendChild(messageDiv);
+            // Scroll to the bottom to show the latest message
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Event listener for sending a new message
+        document.getElementById("chat-input").addEventListener("keydown", function(event) {
+            if (event.key === "Enter" && event.target.value.trim() !== "") {
+                // Replace 'Your Username' with the actual username of the sender
+                const username = "Your Username";
+                const message = event.target.value.trim();
+                event.target.value = ""; // Clear the input field
+                addMessage(username, message);
+
+                // Here, you would send the message to the server for further processing and storing.
+                // You'll need to use AJAX or WebSockets to communicate with the server.
+
+                // For demo purposes, we'll simply log the message to the console.
+                console.log(`${username}: ${message}`);
+            }
+        });
+    </script>
+</body>
 </html>
